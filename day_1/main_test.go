@@ -22,3 +22,22 @@ func TestFloorDirection(t *testing.T) {
 		})
 	}
 }
+
+func TestFloorPosition(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected int
+	}{
+		{"()())()", 5},
+		{"((((())))))", 11},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.input, func(t *testing.T) {
+			result := FloorPosition(tt.input)
+			if result != tt.expected {
+				t.Errorf("FloorPosition(%q) = %d; want %d", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
