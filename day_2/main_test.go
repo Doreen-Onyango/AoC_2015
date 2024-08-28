@@ -10,3 +10,12 @@ func TestSurfaceArea(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func TestPerimeter(t *testing.T) {
+	got := Perimeter("2x3x4")
+	want := 34
+
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
