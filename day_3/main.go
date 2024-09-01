@@ -10,7 +10,8 @@ func main() {
 	if err != nil {
 		fmt.Println("error reading from file")
 	}
-	println(Position(string(data)))
+	fmt.Println(Position(string(data)))
+	fmt.Println(RoboSanta(string(data)))
 }
 
 func Position(s string) int {
@@ -36,6 +37,40 @@ func Position(s string) int {
 			count++
 			contain[ps] = true
 		}
+	}
+	return count
+}
+
+func RoboSanta(str string) int {
+	count := 0
+	contains := make(map[[2]int]bool)
+	sans, robs := [2]int{0, 0}, [2]int{0, 0}
+	contains[sans] = true
+	count++
+
+	for i, char := range str {
+		var pos *[2]int
+		if i%2 == 0 {
+			pos = &sans
+		} else {
+			pos = &robs
+		}
+		switch char {
+		case '>':
+			pos[0]++
+		case '^':
+			pos[1]++
+		case '<':
+			pos[0]--
+		case 'v':
+			pos[1]--
+		}
+
+		if !contains[*pos] {
+			contains[*pos] = true
+			count++
+		}
+
 	}
 	return count
 }
