@@ -11,6 +11,7 @@ import (
 func main() {
 	skey := "bgvyzdsv"
 	fmt.Println(LowNum(skey))
+	fmt.Println(LowNumber(skey))
 
 }
 
@@ -32,6 +33,21 @@ func LowNum(sKey string) int {
 			return i
 		}
 
+		i++
+	}
+}
+
+func LowNumber(sKey string) int {
+	prefix := "000000"
+	i := 0
+
+	for {
+		input := sKey + strconv.Itoa(i)
+		hash := Hash(input)
+
+		if strings.HasPrefix(hash, prefix) {
+			return i
+		}
 		i++
 	}
 }
