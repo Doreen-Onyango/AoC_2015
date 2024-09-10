@@ -1,10 +1,37 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestStrStatus(t *testing.T) {
-	got := StrStatus("ugknbfddgicrmopn")
-	want := "nice"
+	a := []string{"ugknbfddgicrmopn", "jchzalrnumimnmhp", "haegwjzuvuyypxyu", "dvszwmarrgswjxmb", "ugknbfddgicrmopn"}
+	got := NiceString(a)
+	want := 2
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestThreVow(t *testing.T) {
+	got := ThreVow("ugknbfddgicrmopn")
+	want := true
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestContLet(t *testing.T) {
+	got := ContLet("ugknbfddgicrmopn")
+	want := true
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestNoStr(t *testing.T) {
+	got := ContLet("ugknbfcdgicrmopn")
+	want := false
 	if got != want {
 		t.Errorf("got %v want %v", got, want)
 	}
