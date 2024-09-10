@@ -12,7 +12,6 @@ func main() {
 	skey := "bgvyzdsv"
 	fmt.Println(LowNum(skey))
 	fmt.Println(LowNumber(skey))
-
 }
 
 func Hash(str string) string {
