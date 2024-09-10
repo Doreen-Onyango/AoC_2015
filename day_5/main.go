@@ -1,46 +1,72 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 )
 
 func main() {
-	// data, err := os.ReadFile("puzzle.txt")
-	// if err != nil {
-	// 	fmt.Println("could not read from file")
-	// }
-	// fmt.Println(StrStatus(string(data)))
-	x := "advfdfgitfrderttyd"
-	fmt.Println(StrStatus(x))
-
-}
-func IsContained(s string) bool {
-	return s == "aa" || s == "bb" || s == "cc" || s == "dd" || s == "ee" || s == "ff" || s == "gg" || s == "hh" || s == "ii" || s == "jj" || s == "kk"
-}
-func NotAllowed(s string) bool {
-	return s == "ab" || s == "cd" || s == "pq" || s == "xy"
-}
-
-// part 1:
-func StrStatus(s string) string {
+	datas, err := os.Open("puzzle.txt")
+	if err != nil {
+		fmt.Println("could not read from file")
+	}
+	defer datas.Close()
+	scanner := bufio.NewScanner(datas)
 	count := 0
-	vow := "aeiou"
-	for _, c := range s {
-		for _, v := range vow {
-			if c == v {
-				count++
-				if count == 3 {
-					if IsContained(string(c)) {
-						if !NotAllowed(string(c)) {
-							return "Nice"
-						}
-					}
-
-				}
-				return "Naughty"
-
-			}
+	c := 0
+	var sl []string
+	for scanner.Scan() {
+		data := scanner.Text()
+		count++
+		if count > 0 {
+			sl = append(sl, data)
+			c = NiceString(sl)
 		}
 	}
-	return "nice"
+	fmt.Println(c)
+	if err := scanner.Err(); err != nil {
+		fmt.Errorf("error scanning file: %w", err)
+	}
+}
+
+func NiceString(s []string) int {
+	c := 0
+	for _, x := range s {
+		if threVow(x) && ContLet(x) && NoStr(x) {
+			c++
+		}
+	}
+	return c
+}
+
+func threVow(s string) bool {
+	v := "aeiou"
+	c := 0
+	for _, x := range s {
+		if strings.ContainsRune(v, x) {
+			c++
+		}
+	}
+	return c >= 3
+}
+
+func ContLet(s string) bool {
+	for i := range s {
+		if i > 0 && s[i] == s[i-1] {
+			return true
+		}
+	}
+	return false
+}
+
+func NoStr(s string) bool {
+	no := []string{"ab", "cd", "pq", "xy"}
+	for _, x := range no {
+		if strings.Contains(s, x) {
+			return false
+		}
+	}
+	return true
 }
