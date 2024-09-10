@@ -34,14 +34,14 @@ func main() {
 func NiceString(s []string) int {
 	c := 0
 	for _, x := range s {
-		if threVow(x) && ContLet(x) && NoStr(x) {
+		if ThreVow(x) && ContLet(x) && NoStr(x) {
 			c++
 		}
 	}
 	return c
 }
 
-func threVow(s string) bool {
+func ThreVow(s string) bool {
 	v := "aeiou"
 	c := 0
 	for _, x := range s {
