@@ -36,3 +36,28 @@ func TestNoStr(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func TestNiceStr(t *testing.T) {
+	x := []string{"qjhvhtzxzqqjkmpb", "qjhvhtzxzqqjkmpb", "qjhvhtzxzqqjkmpb", "uurcxstgmygtbstg"}
+	got := NiceStr(x)
+	want := 3
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestAlign(t *testing.T) {
+	got := Align("qjhvhtzxzqqjkmpb")
+	want := true
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestPaire(t *testing.T) {
+	got := Paire("qjhvhtzxzqqjkmpb")
+	want := true
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
