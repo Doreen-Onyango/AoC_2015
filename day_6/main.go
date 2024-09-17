@@ -12,6 +12,10 @@ func main() {
 	for i := range grid {
 		grid[i] = make([]bool, 1000)
 	}
+	grids := make([][]int, 1000)
+	for i := range grid {
+		grids[i] = make([]int, 1000)
+	}
 	instructions := ReadInstructions("puzzle.txt")
 
 	for _, instruction := range instructions {
@@ -19,6 +23,12 @@ func main() {
 	}
 	count := CountLitLights(grid)
 	fmt.Println(count)
+
+	for _, instruction := range instructions {
+		ApplicationBrightness(grids, instruction)
+	}
+	brightness := TotalBrightness(grids)
+	fmt.Println(brightness)
 }
 
 func ReadInstructions(filename string) []string {
@@ -76,4 +86,44 @@ func CountLitLights(grid [][]bool) int {
 		}
 	}
 	return count
+}
+
+// Part2
+func ApplicationBrightness(grid [][]int, instruction string) {
+	parts := strings.Split(instruction, " ")
+	var action string
+	var x1, y1, x2, y2 int
+	if parts[0] == "toggle" {
+		action = "toggle"
+		fmt.Sscanf(parts[1], "%d,%d", &x1, &y1)
+		fmt.Sscanf(parts[3], "%d,%d", &x2, &y2)
+	} else {
+		action = parts[1]
+		fmt.Sscanf(parts[2], "%d,%d", &x1, &y1)
+		fmt.Sscanf(parts[4], "%d,%d", &x2, &y2)
+	}
+	for i := x1; i <= x2; i++ {
+		for j := y1; j <= y2; j++ {
+			switch action {
+			case "on":
+				grid[i][j]++
+			case "off":
+				if grid[i][j] > 0 {
+					grid[i][j]--
+				}
+			case "toggle":
+				grid[i][j] += 2
+			}
+		}
+	}
+}
+
+func TotalBrightness(grid [][]int) int {
+	totalBrightness := 0
+	for i := range grid {
+		for j := range grid[i] {
+			totalBrightness += grid[i][j]
+		}
+	}
+	return totalBrightness
 }
