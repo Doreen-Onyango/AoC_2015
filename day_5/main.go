@@ -30,7 +30,7 @@ func main() {
 	fmt.Println(c)
 	fmt.Println(d)
 	if err := scanner.Err(); err != nil {
-		fmt.Errorf("error scanning file: %w", err)
+		fmt.Println("Error scanning file %w", err)
 	}
 }
 
